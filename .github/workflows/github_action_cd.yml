@@ -10,7 +10,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: pull Docker image
-        run: sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/ci-cd-exercise:latest
+        run: sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/ci-cd-example:latest
       - name: delete old docker container
         run: sudo docker rm - f nestjs || true
       - name: run docker container
