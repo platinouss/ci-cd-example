@@ -12,7 +12,7 @@ jobs:
       - name: Dockerhub Login
         env:
           DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+          DOCKER_PASSWORD: ${{secrets.DOCKERHUB_TOKEN}}
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - name: Build Docker image
         run: docker build -t ci-cd-example .
