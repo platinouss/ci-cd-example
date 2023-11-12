@@ -1,0 +1,22 @@
+name: github_action_ci
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Dockerhub Login
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Build Docker image
+        run: docker build -t ci-cd-example .
+      - name: taging
+        run: docker tag ci-cd-example:latest $DOCKER_USERNAME/ci-cd-example:latest
+      - name: push to Dockerhub
+        run: docker push $DOCKER_USERNAME/ci-cd-example:latest

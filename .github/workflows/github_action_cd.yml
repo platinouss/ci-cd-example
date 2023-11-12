@@ -1,0 +1,17 @@
+name: github_action_cd
+
+on:
+  workflow_run:
+    workflows: ["github_action_ci"]
+    types:
+      - completed
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: pull Docker image
+        run: sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/ci-cd-exercise:latest
+      - name: delete old docker container
+        run: sudo docker rm - f nestjs || true
+      - name: run docker container
+        run: sudo docker-compose up -d
