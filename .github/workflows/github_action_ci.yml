@@ -15,7 +15,7 @@ jobs:
           DOCKER_PASSWORD: ${{secrets.DOCKERHUB_TOKEN}}
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - name: Build Docker image
-        run: docker build -t ci-cd-example .
+        run: docker build -t ci-cd-example ./backend
       - name: taging
         run: docker tag ci-cd-example:latest ${{secrets.DOCKERHUB_USERNAME}}/ci-cd-example:latest
       - name: push to Dockerhub
